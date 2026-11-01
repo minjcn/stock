@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="一个简单的股票观察列表：添加、删除股票，数据只保存在本地浏览器。">
+    <meta name="color-scheme" content="light dark">
+    <title>股票观察列表</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/app.js" defer></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <div class="brand">
+          <span class="brand__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 17.5 9 12l3.5 3.5L20 8"></path>
+              <path d="M14.5 8H20v5.5"></path>
+            </svg>
+          </span>
+          <div class="brand__text">
+            <h1>股票观察列表</h1>
+            <p class="app__tagline">记录你关注的股票，数据只保存在本机浏览器。</p>
+          </div>
+        </div>
+      </header>
+
+      <p id="storage-warning" class="banner" role="alert" hidden>
+        当前浏览器无法使用本地存储，列表在刷新后会丢失。
+      </p>
+      <noscript>
+        <p class="banner">此页面需要启用 JavaScript 才能添加和管理股票。</p>
+      </noscript>
+
+      <section class="panel" aria-labelledby="add-title">
+        <h2 id="add-title" class="panel__title">添加股票</h2>
+        <form id="add-form" class="add-form" novalidate>
+          <div class="field">
+            <label for="stock-code">股票代码 <span class="req" aria-hidden="true">*</span></label>
+            <input
+              id="stock-code"
+              name="code"
+              type="text"
+              placeholder="例如 AAPL、600519"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              maxlength="20"
+              required
+              aria-describedby="form-message"
+            >
+          </div>
+          <div class="field">
+            <label for="stock-name">名称 <span class="optional">（可选）</span></label>
+            <input
+              id="stock-name"
+              name="name"
+              type="text"
+              placeholder="例如 苹果公司"
+              autocomplete="off"
+              maxlength="40"
+              aria-describedby="form-message"
+            >
+          </div>
+          <button type="submit" class="btn btn--primary">添加</button>
+        </form>
+        <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="list-title">
+        <div class="list-header">
+          <h2 id="list-title" class="panel__title">我的观察</h2>
+          <span id="count" class="count">共 0 只</span>
+        </div>
+
+        <ul id="watchlist" class="watchlist" aria-labelledby="list-title"></ul>
+
+        <div id="empty-state" class="empty-state">
+          <svg class="empty-state__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 16.5 8.5 11l3.5 3.5L21 6"></path>
+            <path d="M15.5 6H21v5.5"></path>
+          </svg>
+          <p class="empty-state__title">观察列表还是空的</p>
+          <p class="empty-state__hint">在上方输入股票代码，添加第一只股票吧。</p>
+        </div>
+      </section>
+
+      <footer class="app__footer">
+        <p>数据保存在浏览器 localStorage 中，清除浏览器站点数据会同时删除列表。</p>
+      </footer>
+    </main>
+  </body>
+</html>
